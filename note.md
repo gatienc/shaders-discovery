@@ -18,3 +18,5 @@ color vec3 is represented as rgb
 magenta = yellow.rbg; # equivalent to magenta.r=yellow.r, magenta.g=yellow.b, magenta.b=yellow.g
 
 mix(magenta, yellow, 0.5) # mix 50% of magenta and 50% of yellow
+
+pct:percentage
