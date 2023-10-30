@@ -20,7 +20,7 @@ class VerletObject:
         self.position_old = self.position.copy()
         print(f'{self.acceleration=} {dt=} {velocity=}')
 
-        self.position += velocity + self.acceleration * dt * dt
+        self.position += velocity + self.acceleration * (dt * dt)
         self.acceleration = np.array([0., 0.])
 
     def accelerate(self, acceleration):

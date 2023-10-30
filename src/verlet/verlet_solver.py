@@ -4,7 +4,7 @@ from ..config import WINDOW_WIDTH as w, WINDOW_HEIGHT as h
 
 class VerletSolver:
     def __init__(self):
-        self.gravity = np.array([0., 1000.])
+        self.gravity = np.array([0., 10000.])
 
     def update(self, verlet_objects, dt):
         '''
@@ -12,7 +12,6 @@ class VerletSolver:
         '''
         self.apply_gravity(verlet_objects)
         self.apply_constraint(verlet_objects)
-
         self.update_position(verlet_objects, dt)
 
     def apply_gravity(self, verlet_objects):
@@ -33,16 +32,17 @@ class VerletSolver:
         '''
         apply constraints to all verlet objects
         '''
-        center = np.array([w/2, h/2])
-        radius = min(w, h)/2
+        center = np.array([w/2., h/2.])
+        radius = min(w, h)/2.
 
         for obj in verlet_objects:
-            to_obj = obj.position - center
-            distance = np.linalg.norm(to_obj)
+            to_obj = center - obj.position
+            distance = np.sqrt(to_obj[0]*to_obj[0] + to_obj[1]*to_obj[1])
             print(f'{distance=}')
             if distance > (radius - obj.radius):
                 angle = to_obj / distance
                 print(f'angle={angle}')
-                obj.position = center + \
-                    angle * (distance - obj.radius)
+                obj.position = center - \
+                    angle * (radius - obj.radius)
+
                 print(f'obj.position={obj.position}')
