@@ -46,7 +46,7 @@ void main() {
 	vec2 st = gl_FragCoord.xy / u_resolution.xy;
 	vec3 color = vec3(0.0);
 	float pct;
-	float stroke = 0.015 + 0.01 * sin(u_time);
+	float stroke = 0.015 + 0.1 * sin(u_time);
 	pct += rectangle(st, vec2(0., (1. / 3.)), vec2(0.15, (1. / 3.) - stroke));
 	pct += rectangle(st, vec2(0., (0.)), vec2(0.15, (1. / 3.) - stroke));
 	pct += rectangle(st, vec2((0.15) + stroke, (0.9)), vec2(0.2 - stroke, (1. / 3.) - stroke));
