@@ -1,11 +1,14 @@
 # imports
+from tkinter import E
 import pygame as pg
 import sys
+
+from .Engine import Engine
 
 from .config import WINDOW_WIDTH as w, WINDOW_HEIGHT as h, FPS
 
 
-class Engine:
+class Renderer:
     def __init__(self):
         pg.init()
         pg.mouse.set_visible(True)
@@ -19,19 +22,15 @@ class Engine:
         self.global_trigger = False
         self.global_event = pg.USEREVENT + 0
         pg.time.set_timer(self.global_event, 40)
+        self.engine = Engine()
 
     def update(self):
         pg.display.flip()
-
         # number of milliseconds that passed between the previous two calls to Clock.tick(), giving the framerate add a delay if needed
-        self.delta_time = self.clock.tick(FPS)
+        self.delta_time = self.clock.tick(FPS)*0.001
 
-    def draw(self):
-        # get mouse position
-        mouse_pos = pg.mouse.get_pos()
-        pg.draw.rect(self.screen, (0, 0, 0), (0, 0, w, h))
-        print(mouse_pos)
-        pg.draw.circle(self.screen, (255, 0, 0), mouse_pos, 50)
+    def clean_window(self):
+        self.screen.fill((0, 0, 0))
 
     def check_events(self):
         self.global_trigger = False
@@ -46,9 +45,11 @@ class Engine:
         while True:
             self.check_events()
             self.update()
-            self.draw()
+            self.engine.update(self.delta_time)
+            self.clean_window()
+            self.engine.draw(self.screen)
 
 
 if __name__ == '__main__':
-    engine = Engine()
-    engine.run()
+    renderer = Renderer()
+    renderer.run()

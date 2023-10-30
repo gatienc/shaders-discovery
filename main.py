@@ -2,9 +2,8 @@
 engine project by Gatien CHENU
 
 '''
-from src import engine
-from src.engine import Engine
+from src.Renderer import Renderer
 
 if __name__ == '__main__':
-    engine = Engine()
-    engine.run()
+    Renderer = Renderer()
+    Renderer.run()

@@ -7,3 +7,4 @@ WINDOW_HEIGHT = 600
 # Engine configuration
 MAX_POINTS = 1000
 FPS = 60
+OBJECT_RADIUS = 10.
