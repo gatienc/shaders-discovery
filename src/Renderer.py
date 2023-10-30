@@ -1,11 +1,17 @@
 # imports
-from tkinter import E
+from venv import logger
 import pygame as pg
 import sys
+import numpy as np
+from src.verlet.verlet_object import VerletObject
 
 from .Engine import Engine
 
 from .config import WINDOW_WIDTH as w, WINDOW_HEIGHT as h, FPS
+
+import logging
+
+logger = logging.getLogger('debug')
 
 
 class Renderer:
@@ -24,6 +30,8 @@ class Renderer:
         pg.time.set_timer(self.global_event, 40)
         self.engine = Engine()
 
+        self.add_object_trigger = False
+
     def update(self):
         pg.display.flip()
         # number of milliseconds that passed between the previous two calls to Clock.tick(), giving the framerate add a delay if needed
@@ -38,6 +46,13 @@ class Renderer:
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    mouse_pos = np.array(pg.mouse.get_pos(), dtype=np.float64)
+                    # print(mouse_pos)
+                    self.engine.add_object(VerletObject(position=mouse_pos))
+                if event.button == 3:
+                    self.engine.remove_first_object()
             elif event.type == self.global_event:
                 self.global_trigger = True
 
@@ -48,6 +63,9 @@ class Renderer:
             self.engine.update(self.delta_time)
             self.clean_window()
             self.engine.draw(self.screen)
+
+            pg.display.set_caption(
+                f'Engine test ({self.engine.get_number_of_objects()} objects, {self.clock.get_fps():.0f} FPS)')
 
 
 if __name__ == '__main__':
