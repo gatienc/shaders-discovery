@@ -1,6 +1,10 @@
-from src import *
-from src import __version__
-print(__version__)
+'''
+engine project by Gatien CHENU
+
+'''
+from src import engine
+from src.engine import Engine
 
 if __name__ == '__main__':
-    app()
+    engine = Engine()
+    engine.run()

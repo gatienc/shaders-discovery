@@ -11,8 +11,7 @@ python = ">=3.10, <3.11"
 moderngl = "^5.8.2"
 pillow = "^10.1.0"
 numpy = "^1.26.1"
-pyopengl = "^3.1.7"
-pyopengl-accelerate = "^3.1.7"
+pygame = "^2.5.2"
 
 
 [tool.poetry.group.dev.dependencies]
